@@ -1,0 +1,26 @@
+<td *ngIf="isTotal" [ngClass]="{'selected': currentColumn === columnsEnum.PAYROLL_PROVIDER || isTotal}"
+    class="row-name align-right padding-right-2">TOTAL</td>
+<td *ngIf="!isTotal" [ngClass]="{'selected': currentColumn === columnsEnum.PAYROLL_PROVIDER || isTotal}"
+    class="row-name">
+    {{labourCost?.name}}</td>
+<td [ngClass]="{'selected': currentColumn === columnsEnum.WORKER || isTotal}" class="row-number">
+    {{labourCost?.workerCount}}</td>
+<td [ngClass]="{'selected': currentColumn === columnsEnum.COMPLIANCE || isTotal}"
+    class="column-separator row-percentage">
+    {{labourCost?.complianceStats?.Total ?? 0 | number: '1.0-0'}}%</td>
+<td [ngClass]="{'selected': currentColumn === columnsEnum.GROSS_PAY || isTotal}"
+    class="align-right row-number darkgrey">
+    {{labourCost?.grossPayTotal | number: '1.0-0'}}</td>
+<td [ngClass]="{'selected': currentColumn === columnsEnum.PAYROLL_ADMIN || isTotal}" class="align-right row-number">
+    <ng-container *ngIf="labourCost?.payrollAdminTotal ?? 0 > 0">
+        {{labourCost?.payrollAdminTotal}}
+    </ng-container>
+    <ng-container *ngIf="labourCost?.payrollAdminTotal === 0 || labourCost?.payrollAdminTotal === undefined">
+        -
+    </ng-container>
+</td>
+<td [ngClass]="{'selected': currentColumn === columnsEnum.LABOUR_COST || isTotal}"
+    class="align-right row-number column-separator padding-right-3">{{labourCost?.labourCostTotal | number: '1.0-0'}}
+</td>
+<td [ngClass]="{'selected': currentColumn === columnsEnum.WORKFORCE || isTotal}" class="align-right row-percentage">
+    {{labourCost?.workForce | number: '1.1-1'}}%</td>

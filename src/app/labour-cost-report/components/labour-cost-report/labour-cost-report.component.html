@@ -1,0 +1,53 @@
+<div class="report-wrapper">
+  <p class="title">Labour cost report</p>
+  <table cellspacing="0">
+    <tr>
+      <th (click)="onClickHeader(columnsEnum.PAYROLL_PROVIDER)" class="align-left row-gap" style="width: 26%;">
+        <p>Payroll</p>
+        <p>Provider<i *ngIf="sortingColumn === columnsEnum.PAYROLL_PROVIDER" [ngClass]="getArrowClass()"></i></p>
+      </th>
+      <th (click)="onClickHeader(columnsEnum.WORKER)" class="align-left row-gap" style="width: 10%;">
+        <p>Worker<i *ngIf="sortingColumn === columnsEnum.WORKER" [ngClass]="getArrowClass()"></i></p>
+      </th>
+      <th (click)="onClickHeader(columnsEnum.COMPLIANCE)" class="align-left row-gap" style="width: 10%;">
+        <p>Compliance</p>
+        <p>Score<i *ngIf="sortingColumn === columnsEnum.COMPLIANCE" [ngClass]="getArrowClass()"></i></p>
+      </th>
+      <th (click)="onClickHeader(columnsEnum.GROSS_PAY)" class="align-right row-gap" style="width: 15%;">
+        <p>Gross</p>
+        <p>Pay (£)<i *ngIf="sortingColumn === columnsEnum.GROSS_PAY" [ngClass]="getArrowClass()"></i></p>
+      </th>
+      <th (click)="onClickHeader(columnsEnum.PAYROLL_ADMIN)" class="align-right row-gap" style="width: 10%;">
+        <p>Payroll</p>
+        <p>Admin (£)<i *ngIf="sortingColumn === columnsEnum.PAYROLL_ADMIN" [ngClass]="getArrowClass()"></i></p>
+      </th>
+      <th (click)="onClickHeader(columnsEnum.LABOUR_COST)" class="align-right row-gap padding-right-3"
+        style="width: 17%;">
+        <p>Labour</p>
+        <p>Cost (£)<i *ngIf="sortingColumn === columnsEnum.LABOUR_COST" [ngClass]="getArrowClass()"></i></p>
+      </th>
+      <th (click)="onClickHeader(columnsEnum.WORKFORCE)" class="align-right row-gap" style="width: 7%;">
+        <p>Work-</p>
+        <p>Force<i *ngIf="sortingColumn === columnsEnum.WORKFORCE" [ngClass]="getArrowClass()"></i></p>
+      </th>
+    </tr>
+    <ng-container *ngIf="sortingColumn === columnsEnum.PAYROLL_PROVIDER">
+      <tr class="table-row" app-labour-cost-report-table-row [labourCost]="directContractor"
+        [currentColumn]="sortingColumn" *ngFor="let directContractor of labourCostReport?.directContractors"></tr>
+      <tr>
+        <td class="empty-row" colspan="7">&nbsp;</td>
+      </tr>
+      <tr class="table-row" app-labour-cost-report-table-row [labourCost]="provider" [currentColumn]="sortingColumn"
+        *ngFor="let provider of labourCostReport?.providers"></tr>
+    </ng-container>
+    <ng-container *ngIf="sortingColumn != columnsEnum.PAYROLL_PROVIDER">
+      <tr class="table-row" app-labour-cost-report-table-row [labourCost]="provider" [currentColumn]="sortingColumn"
+        *ngFor="let provider of labourCostReport?.allProviders"></tr>
+    </ng-container>
+    <tr>
+      <td class="empty-row" colspan="7">&nbsp;</td>
+    </tr>
+    <tr class="table-row" app-labour-cost-report-table-row [labourCost]="p" [currentColumn]="sortingColumn"
+      [isTotal]="true" *ngFor="let p of labourCostReport?.total"></tr>
+  </table>
+</div>
